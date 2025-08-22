@@ -2,7 +2,7 @@
 //useFetch(FetchMovies)
 
 import {useEffect, useState} from "react";
-// FetchFcuntion passed through props
+// FetchFuntion passed through props
 const useFetch = <T>(fetchFunction: () => Promise<T>, autoFetch = true ) => {
     const [data, setData] = useState<T | null>(null);
     const [loading, setLoading] = useState(false);
