@@ -1,5 +1,5 @@
 
-//useFetch(FetchMovies)
+// useFetch(FetchMovies)
 
 import {useEffect, useState} from "react";
 // FetchFuntion passed through props
@@ -17,12 +17,13 @@ const useFetch = <T>(fetchFunction: () => Promise<T>, autoFetch = true ) => {
             setData(result);
         }
         catch (error) {
+            // @ts-ignore
             setError(error instanceof Error ? error : new Error('An error occurred'));
         }
         finally {
             setLoading(false);
         }
-    }
+    };
     const reset = () => {
         setData(null);
         setError(null);
@@ -31,7 +32,7 @@ const useFetch = <T>(fetchFunction: () => Promise<T>, autoFetch = true ) => {
 
     //Called to do something at the start of component load
     useEffect(() => {
-        if(autoFetch) { // if autofetch is turned on
+        if(autoFetch) { // if autofetch is turned on then automatically fetch data
             FetchData();
         }
     }, []);
