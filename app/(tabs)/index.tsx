@@ -19,12 +19,16 @@ export default function Index() {
         error: moviesError
     } = useFetch(() =>
         fetchMovies({
-            query: "Batman"
+            query: ''
         }))
-    console.log("OMDb response:", movies);
+    const MAX_DISPLAY = 14;
+    const displayedMovies = movies.slice(0, MAX_DISPLAY);
     return (
         <View className={"flex-1 bg-primary"}>
-            <Image source={images.bg} className={"absolute w-full z-0"}/>
+            <Image source={images.bg}
+                   className={"absolute w-full z-0"}
+                   resizeMode={"cover"}
+            />
             <ScrollView className={"flex-1 px-5"}
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={{minHeight: "100%", paddingBottom: 10}}>
@@ -36,10 +40,10 @@ export default function Index() {
                         color="#0000ff"
                         className={"mt-10 self-center"}
                     />
-                ) : moviesError ? (
-                    <text>Error: {moviesError?.message}</text>
+                // ) : moviesError ? (
+                //     <Text>Error: {moviesError?.message}</Text>
                 ) : (
-                    <View>
+                    <View className={"flex-1 mt-5"}>
                         <SearchBar
                             onPress={() =>
                                 router.push("/search")} // WHEN PRESS THE SEARCHBAR REDIRECTS TO SEARCH PAGE
@@ -47,45 +51,34 @@ export default function Index() {
                         />
                         <>
                             <Text className={"text-lg text-white font-bold mt-5 mb-3"}>
-                                Batman Movies</Text>
+                                Latest Movies
+                            </Text>
 
-                            <FlatList //FlatList very flexible has many features
-                                data={movies?.Search || []} // OMDb returns data inside a "Search" array
-                                // Render Item very Important!
+                            <FlatList
+                                data={displayedMovies}
                                 renderItem={({item}) => (
-                                    <MovieCard {...item}/>
-                                    //     <TouchableOpacity className={"flex-1 items-center mb-4"}>
-                                    //     <Image
-                                    //         source={{ uri: item.Poster }}
-                                    //         className="w-24 h-36 rounded ml-10"
-                                    //         resizeMode="cover"
-                                    //     />
-                                    //     <Text className="text-sm font-bold text-white">{item.Title}</Text>
-                                    //     </TouchableOpacity>
+                                   <MovieCard {...item}/>
                                 )}
-                                keyExtractor={(item) => item.imdbID}
+                                keyExtractor={(item) => item.id.toString()}
                                 numColumns={3}
+                                //Positions data more nicely
                                 columnWrapperStyle={{
-                                    // justifyContent: "space-between",
-                                    // paddingHorizontal: 16,
-                                    // marginBottom: 16,
-                                    justifyContent: "flex-start",
+                                    justifyContent: 'flex-start',
                                     gap: 20,
                                     paddingRight: 5,
                                     marginBottom: 10
                                 }}
                                 className={"mt-2 pb-32"}
                                 scrollEnabled={false}
-
                             />
-
                         </>
-                    </View>
-                )
-                }
 
+                    </View>
+                )}
             </ScrollView>
         </View>
+    );
+}
         // <View className="flex-1 bg-primary">
         //     <Image source={images.bg} className="absolute w-full h-full z-0" />
         //
@@ -135,9 +128,10 @@ export default function Index() {
         //         </Text>
         //     )}
         // </View>
-    );
 
 
 
 
-};
+
+
+
