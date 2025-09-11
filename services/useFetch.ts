@@ -18,7 +18,7 @@ const useFetch = <T>(fetchFunction: () => Promise<T>, autoFetch = true ) => {
         }
         catch (error) {
             // @ts-ignore
-            setError(error instanceof Error ? error : new Error('An error occurred'));
+            setError(error instanceof Error ? error : new Error('An unknown error occurred'));
         }
         finally {
             setLoading(false);
