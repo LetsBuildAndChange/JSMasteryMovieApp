@@ -33,7 +33,7 @@ const Search = () => {
             }
     }, 500);
         return () => clearTimeout(timeoutID);
-    }, [loadMovies, reset, searchQuery])
+    }, [searchQuery])
     return(
         <View className={"flex-1 bg-primary"}>
             <Image source={images.bg} className={"flex-1 absolute w-full z-0"}
