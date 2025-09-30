@@ -6,7 +6,7 @@ export const TMDB_CONFIG = {
         Authorization: `Bearer ${process.env.EXPO_PUBLIC_MOVIE_API_KEY}`,
     },
 }
-// more efficient
+// more efficient b/c now can simultaneously find movies and by default display trending movies
 export const fetchMovies = async ({query }: { query: string }) => {
     const endpiont = query
         ? `${TMDB_CONFIG.BASE_URL}/search/movie?query=${encodeURIComponent(query)}`

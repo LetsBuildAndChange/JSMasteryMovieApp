@@ -21,8 +21,8 @@ export default function Index() {
         fetchMovies({
             query: ''
         }))
-    const MAX_DISPLAY = 14;
-    const displayedMovies = movies.slice(0, MAX_DISPLAY);
+    // const MAX_DISPLAY = 14;
+    // const displayedMovies = movies.slice(0, MAX_DISPLAY);
     return (
         <View className={"flex-1 bg-primary"}>
             <Image source={images.bg}
@@ -48,6 +48,9 @@ export default function Index() {
                             onPress={() =>
                                 router.push("/search")} // WHEN PRESS THE SEARCHBAR REDIRECTS TO SEARCH PAGE
                             placeholder="Search for a movie" // shows what is in bar
+                            value={""}
+                            onChangeText={() => {}}
+
                         />
                         <>
                             <Text className={"text-lg text-white font-bold mt-5 mb-3"}>
@@ -55,7 +58,7 @@ export default function Index() {
                             </Text>
 
                             <FlatList
-                                data={displayedMovies}
+                                data={movies}
                                 renderItem={({item}) => (
                                    <MovieCard {...item}/>
                                 )}
